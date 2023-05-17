@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min. css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Boostrap CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <!-- Boostrap skectchy -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
+    <!-- Google font -->
+    <link href="<link href='https://fonts.googleapis.com/css?family=Permanent Marker' rel='stylesheet'>" >
+    <!-- main.css archive -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class="display-4 text-center mt-4 title">Task Manager</h1>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto"> <!-- This div will occupy 4 columns of space (centered) -->
+                <div class="card"> <!--Card objetio creation-->
+                    <div class="card-header">
+                        <form action="/criar-tarefa" method="post">
+                <!-- We separate the input from the button by placing the input in this form-group so that the elements
+                 are not glued together and there is separation between them-->
+                            <div class="form-group">
+                                <input type="text" name="content_task" placeholder="Tasks" class="form-control" autofocus>
+                            </div>
+                            <!-- btn-block makes the button take up the full width -->
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <!-- ul and il create lists in HTML -->
+                        <ul class="list-group">
+                            {% for task in list_task %}
+                            <li class="list-group-item">
+                                <span class="{% if task.done==true %} completed_task {% endif %}">
+                                    {{task.content}}
+                                </span>
+                                <a href="/delete/{{task.id}}" style="text-decoration:none; float: right;">
+                                    <svg class="bi bi-trash" width="2em" height="2em" viewBox="0 0 16 16" fill="red"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0
+                                        01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1
+                                        0v6a.5.5 0 001 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0
+                                        01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011
+                                        1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882
+                                        4H4.118zM2.5 3V2h11v1h-11z" clip-rule="evenodd"/>
+                                    </svg>
+                                </a>
+                                <a href="/done/{{task.id}}"
+                                   style="text-decoration:none; float: right; margin-right: 1em;">
+                                    <svg class="bi bi-check-box" width="2em" height="2em" viewBox="0 0 16 16"
+                                         fill="green" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 010 .708l-7
+                                        7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z"
+                                              clip-rule="evenodd"/>
+                                        <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h10a1.5
+                                        1.5 0 001.5-1.5V8a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V3a.5.5 0
+                                        01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z" clip-rule="evenodd"/>
+                                    </svg>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
